@@ -18,67 +18,70 @@ Const DB_Type_String = 4;
 //        D E C L A R A T I O N S
 // =====================================
 Procedure DB_Close(DatabaseID: Integer);
-External 'DB_Close@libdb.so cdecl';
+External 'DB_Close@libdb-0.2.dll cdecl';
 
 Function DB_ColumnName(DatabaseID, Column: Integer): PChar;
-External 'DB_ColumnName@libdb.so cdecl';
+External 'DB_ColumnName@libdb-0.2.dll cdecl';
 
 Function DB_ColumnSize(DatabaseID, Column: Integer): Integer;
-External 'DB_ColumnSize@libdb.so cdecl';
+External 'DB_ColumnSize@libdb-0.2.dll cdecl';
 
 Function DB_ColumnType(DatabaseID, Column: Integer): Integer;
-External 'DB_ColumnType@libdb.so cdecl';
+External 'DB_ColumnType@libdb-0.2.dll cdecl';
 
 Function DB_Columns(DatabaseID: Integer): Integer;
-External 'DB_Columns@libdb.so cdecl';
+External 'DB_Columns@libdb-0.2.dll cdecl';
 
 Function DB_Error(): PChar;
-External 'DB_Error@libdb.so cdecl';
+External 'DB_Error@libdb-0.2.dll cdecl';
 
 Function DB_Query(DatabaseID: Integer; Query: PChar): Integer;
-External 'DB_Query@libdb.so cdecl';
+External 'DB_Query@libdb-0.2.dll cdecl';
 
 Function DB_Update(DatabaseID: Integer; Query: PChar): Integer;
-External 'DB_Update@libdb.so cdecl';
+External 'DB_Update@libdb-0.2.dll cdecl';
 
 Procedure DB_FinishQuery(DatabaseID: Integer);
-External 'DB_FinishQuery@libdb.so cdecl';
+External 'DB_FinishQuery@libdb-0.2.dll cdecl';
 
 Function DB_FirstRow(DatabaseID: Integer): Integer;
-External 'DB_FirstRow@libdb.so cdecl';
+External 'DB_FirstRow@libdb-0.2.dll cdecl';
 
 Function DB_GetDouble(DatabaseID, Column: Integer): Double;
-External 'DB_GetDouble@libdb.so cdecl';
+External 'DB_GetDouble@libdb-0.2.dll cdecl';
 
 Function DB_GetFloat(DatabaseID, Column: Integer): Single;
-External 'DB_GetFloat@libdb.so cdecl';
+External 'DB_GetFloat@libdb-0.2.dll cdecl';
 
 Function DB_GetLong(DatabaseID, Column: Integer): LongInt;
-External 'DB_GetLong@libdb.so cdecl';
+External 'DB_GetLong@libdb-0.2.dll cdecl';
 
 Function DB_GetString(DatabaseID, Column: Integer): PChar;
-External 'DB_GetString@libdb.so cdecl';
+External 'DB_GetString@libdb-0.2.dll cdecl';
 
 Function DB_IsDatabase(DatabaseID: Integer): Integer;
-External 'DB_IsDatabase@libdb.so cdecl';
+External 'DB_IsDatabase@libdb-0.2.dll cdecl';
 
 Function DB_NextRow(DatabaseID: Integer): Integer;
-External 'DB_NextRow@libdb.so cdecl';
+External 'DB_NextRow@libdb-0.2.dll cdecl';
 
 Function DB_Open(DatabaseID: Integer; DatabaseName, User, Password: PChar; Plugin: Integer): Integer;
-External 'DB_Open@libdb.so cdecl';
+External 'DB_Open@libdb-0.2.dll cdecl';
 
 Function DB_ExamineDrivers(): Integer;
-External 'DB_ExamineDrivers@libdb.so cdecl';
+External 'DB_ExamineDrivers@libdb-0.2.dll cdecl';
 
 Function DB_NextDriver(): Integer;
-External 'DB_NextDriver@libdb.so cdecl';
+External 'DB_NextDriver@libdb-0.2.dll cdecl';
 
 Function DB_DriverDescription(): PChar;
-External 'DB_DriverDescription@libdb.so cdecl';
+External 'DB_DriverDescription@libdb-0.2.dll cdecl';
 
 Function DB_DriverName(): PChar;
-External 'DB_DriverName@libdb.so cdecl';
+External 'DB_DriverName@libdb-0.2.dll cdecl';
+
+Function DB_GetVersion(): Integer;
+External 'DB_GetVersion@libdb-0.2.dll cdecl';
 
 // =====================================
 //            E X A M P L E S
@@ -116,7 +119,7 @@ begin
 		CheckDatabaseUpdate(0, 'INSERT INTO test(name, value) VALUES(''name3'', 15);');
 		WriteLn('Values inserted...');
 		DB_Close(0);
-		writeln('Database "'+db_path+'" closed...');
+		WriteLn('Database "'+db_path+'" closed...');
 	end;
 end;
 
@@ -216,5 +219,6 @@ begin
 	'/query1'  : query_db(7);
 	'/query2'  : query_db(14);
 	'/drivers' : drivers();
+	'/version' : WriteLn('libdb v0.'+IntToStr(DB_GetVersion()));
 	end;
 end;
